@@ -30,11 +30,18 @@ function __init__()
     end
 end
 
+if haskey(ENV, "JULIA_OSQP_LIBRARY_PATH")
+    path = ENV["JULIA_OSQP_LIBRARY_PATH"]
+    const osqp = joinpath(path, "libosqp.so")
+    const qdldl = joinpath(path, "libqdldl.so")
+end
+
 include("constants.jl")
 include("types.jl")
 include("interface.jl")
 include("MPB_wrapper.jl")
 include("MOI_wrapper.jl")
+include("repolish.jl")
 const Optimizer = MathOptInterfaceOSQP.Optimizer
 
 end # module
